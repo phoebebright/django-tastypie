@@ -18,10 +18,15 @@ from django.core.exceptions import (
 from django.core.signals import got_request_exception
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models.fields.related import ForeignKey
+
 try:
     from django.contrib.gis.db.models.fields import GeometryField
-except (ImproperlyConfigured, ImportError):
-    GeometryField = None
+    HAS_GEOS = True
+except Exception as e:
+    log = logging.getLogger('django.request.tastypie')
+    log.info('Failed to load gis with error: %s' % e)
+    HAS_GEOS = False
+    
 from django.db.models.constants import LOOKUP_SEP
 try:
     from django.db.models.fields.related import\
