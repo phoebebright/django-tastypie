@@ -7,7 +7,7 @@ import sys
 from time import mktime
 import traceback
 import warnings
-from wsgiref.handlers import format_date_time
+from wsgiref.handlers import format_date_time 
 
 import django
 from django.conf import settings
@@ -2052,7 +2052,7 @@ class BaseModelResource(Resource):
         qs_filters = {}
 
         query_terms = QUERY_TERMS
-        if django.VERSION >= (1, 8) and GeometryField:
+        if django.VERSION >= (1, 8) and HAS_GEOS:
             query_terms |= set(GeometryField.class_lookups.keys())
 
         for filter_expr, value in filters.items():
